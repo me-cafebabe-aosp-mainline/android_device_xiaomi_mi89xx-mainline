@@ -19,6 +19,7 @@ TARGET_AUDIO_MAINLINE_UCM_PROFILES := \
     xiaomi-onclite \
     xiaomi-rosy \
     xiaomi-tissot \
+    xiaomi-uter \
     xiaomi-vince \
     xiaomi-ysl
 
