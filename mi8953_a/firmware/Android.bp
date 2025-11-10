@@ -147,6 +147,34 @@ install_symlink {
 }
 
 install_symlink {
+    name: "symlink_firmware_mi8953_a_uter_a506_zap.b00",
+    device_specific: true,
+    installed_location: "firmware/qcom/msm8953/xiaomi/uter/a506_zap.b00",
+    symlink_target: "../a506_zap.b00",
+}
+
+install_symlink {
+    name: "symlink_firmware_mi8953_a_uter_a506_zap.b01",
+    device_specific: true,
+    installed_location: "firmware/qcom/msm8953/xiaomi/uter/a506_zap.b01",
+    symlink_target: "../a506_zap.b01",
+}
+
+install_symlink {
+    name: "symlink_firmware_mi8953_a_uter_a506_zap.b02",
+    device_specific: true,
+    installed_location: "firmware/qcom/msm8953/xiaomi/uter/a506_zap.b02",
+    symlink_target: "../a506_zap.b02",
+}
+
+install_symlink {
+    name: "symlink_firmware_mi8953_a_uter_a506_zap.mdt",
+    device_specific: true,
+    installed_location: "firmware/qcom/msm8953/xiaomi/uter/a506_zap.mdt",
+    symlink_target: "../a506_zap.mdt",
+}
+
+install_symlink {
     name: "symlink_firmware_mi8953_a_vince_a506_zap.b00",
     device_specific: true,
     installed_location: "firmware/qcom/msm8953/xiaomi/vince/a506_zap.b00",
@@ -222,6 +250,10 @@ phony {
         "symlink_firmware_mi8953_a_oxygen_a506_zap.b01",
         "symlink_firmware_mi8953_a_oxygen_a506_zap.b02",
         "symlink_firmware_mi8953_a_oxygen_a506_zap.mdt",
+        "symlink_firmware_mi8953_a_uter_a506_zap.b00",
+        "symlink_firmware_mi8953_a_uter_a506_zap.b01",
+        "symlink_firmware_mi8953_a_uter_a506_zap.b02",
+        "symlink_firmware_mi8953_a_uter_a506_zap.mdt",
         "symlink_firmware_mi8953_a_vince_a506_zap.b00",
         "symlink_firmware_mi8953_a_vince_a506_zap.b01",
         "symlink_firmware_mi8953_a_vince_a506_zap.b02",
