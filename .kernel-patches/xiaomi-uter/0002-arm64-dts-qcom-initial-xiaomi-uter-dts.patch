@@ -1,0 +1,328 @@
+From d2fb6291f9c748160e92382ec6c5edc8e0ed4753 Mon Sep 17 00:00:00 2001
+From: me-cafebabe <me.cafebabe@gmail.com>
+Date: Sat, 3 Jun 2023 21:09:34 +0800
+Subject: [PATCH 2/3] arm64: dts: qcom: initial xiaomi uter dts
+
+---
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/msm8953-xiaomi-uter.dts     | 296 ++++++++++++++++++
+ 2 files changed, 297 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/msm8953-xiaomi-uter.dts
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1767b96468aaf..090c58ef505b9 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -127,6 +127,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-mido.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-markw.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-oxygen.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-tissot.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-uter.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-vince.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-ysl.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8956-sony-xperia-loire-kugo.dtb
+diff --git a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-uter.dts b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-uter.dts
+new file mode 100644
+index 0000000000000..caf527883c82f
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-uter.dts
+@@ -0,0 +1,296 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/dts-v1/;
++
++#include "msm8953-xiaomi-common.dtsi"
++#include "dt-bindings/pinctrl/qcom,pmic-gpio.h"
++
++/delete-node/ &adsp_fw_mem;
++/delete-node/ &qseecom_mem;
++/delete-node/ &wcnss_fw_mem;
++
++/delete-node/ &spi_7;
++/delete-node/ &spi_7_default;
++/delete-node/ &spi_7_sleep;
++
++/* Decrease the size */
++&cont_splash_mem {
++	reg = <0x0 0x90001000 0x0 (1080 * 1920 * 3)>;
++};
++
++/ {
++	model = "Xiaomi UTER";
++	compatible = "xiaomi,uter", "qcom,msm8953";
++	qcom,board-id = <0x20008 0>;
++	qcom,pmic-id = <0x010016 0x010011 0x0 0x0>;
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer@90001000 {
++			compatible = "simple-framebuffer";
++			reg = <0 0x90001000 0 (1920 * 1080 * 3)>;
++
++			width = <1080>;
++			height = <1920>;
++			stride = <(1080 * 3)>;
++			format = "r8g8b8";
++
++			power-domains = <&gcc MDSS_GDSC>;
++
++			clocks = <&gcc GCC_MDSS_AHB_CLK>,
++				 <&gcc GCC_MDSS_AXI_CLK>,
++				 <&gcc GCC_MDSS_VSYNC_CLK>,
++				 <&gcc GCC_MDSS_MDP_CLK>,
++				 <&gcc GCC_MDSS_BYTE0_CLK>,
++				 <&gcc GCC_MDSS_PCLK0_CLK>,
++				 <&gcc GCC_MDSS_ESC0_CLK>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio_key_default>, <&gpio_hall_sensor_default>;
++
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 131 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			linux,can-disable;
++		};
++	};
++
++	reserved-memory {
++		qseecom_mem: qseecom@83300000 {
++			reg = <0x0 0x83300000 0x0 0x3800000>;
++			no-map;
++		};
++
++		adsp_fw_mem: adsp@8d600000 {
++			reg = <0x0 0x8d600000 0x0 0x1200000>;
++			no-map;
++		};
++
++		wcnss_fw_mem: wcnss@8e800000 {
++			reg = <0x0 0x8e800000 0x0 0x700000>;
++			no-map;
++		};
++
++		ramoops@b0000000 {
++			compatible = "ramoops";
++			reg = <0x0 0xb0000000 0x0 0x400000>;
++			record-size = <0x200000>;
++			console-size = <0x200000>;
++		};
++	};
++
++	/*
++	 * We bitbang on &i2c_4 because BLSP is protected by TZ as sensors are
++	 * normally proxied via ADSP firmware. GPIOs aren't protected.
++	 */
++/*
++	// Not so sure?
++	i2c-sensors {
++		compatible = "i2c-gpio";
++		sda-gpios = <&tlmm 14 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
++		scl-gpios = <&tlmm 15 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
++		i2c-gpio,delay-us = <2>; // ~100 kHz
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		ak09918: magnetometer@c {
++			compatible = "asahi-kasei,ak09918";
++			reg = <0x0c>;
++
++			vdd-supply = <&pm8953_l10>;
++			vid-supply = <&pm8953_l6>;
++		};
++
++		bmi120: imu@68 {
++			compatible = "bosch,bmi120";
++			reg = <0x68>;
++
++			vdd-supply = <&pm8953_l10>;
++			vddio-supply = <&pm8953_l6>;
++
++			mount-matrix = "0", "1", "0",
++					"1", "0", "0",
++					"0", "0", "1";
++		};
++	};
++*/
++
++	irled {
++		compatible = "pwm-ir-tx";
++		pwms = <&pmi8950_pwm 0 0>;
++	};
++};
++
++&battery {
++	charge-full-design-microamp-hours = <3300000>;
++	constant-charge-current-max-microamp = <1000000>; // unsure
++	voltage-min-design-microvolt = <3400000>;
++	voltage-max-design-microvolt = <4400000>;
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/msm8953/xiaomi/uter/a506_zap.mdt";
++};
++
++&i2c_3 {
++	clock-frequency = <400000>;
++};
++
++&max98927_codec {
++	status = "okay";
++
++	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
++
++	/delete-property/ maxim,interleave-mode;
++};
++
++&panel {
++	compatible = "xiaomi,uter-panel";
++	rotation = <180>;
++};
++
++&pmi8950_gpios {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm_ir_default>;
++
++	pwm_ir_default: pwm_ir_default {
++		pwm_ir_state {
++			pins = "gpio1";
++			output-low;
++			bias-pull-down;
++			function = "func1";
++			qcom,drive-strength = <PMIC_GPIO_STRENGTH_MED>;
++		};
++	};
++};
++
++&pmi8950_haptics {
++	qcom,actuator-type = <HAP_TYPE_ERM>;
++	qcom,brake-pattern = <0x3 0x3 0x0 0x0>;
++	qcom,wave-play-rate-us = <4165>;
++	qcom,wave-shape = <HAP_WAVE_SQUARE>;
++
++	status = "okay";
++};
++
++&q6afedai {
++	dai@22 {
++		reg = <QUATERNARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
++&rmi4_ts {
++	status = "okay";
++};
++
++&rpm_requests {
++	regulators {
++		l6 {
++			regulator-always-on; // For MAX98927 PA
++		};
++		l17 {
++			regulator-min-microvolt = <2850000>; // Override to standard value
++		};
++		l22 {
++			regulator-min-microvolt = <3300000>;
++			regulator-max-microvolt = <3300000>;
++		};
++	};
++};
++
++&sdhc_2 {
++	cd-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
++};
++
++&sound_card {
++	status = "okay";
++
++	model = "xiaomi-uter";
++
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&cdc_pdm_lines_default
++			&cdc_pdm_lines_2_default
++			&cdc_pdm_comp_lines_default
++			&sec_mi2s_default>;
++	pinctrl-1 = <&cdc_pdm_lines_sleep
++			&cdc_pdm_lines_2_sleep
++			&cdc_pdm_comp_lines_sleep
++			&sec_mi2s_sleep>;
++
++	quaternary-mi2s-dai-link {
++		link-name = "Quaternary MI2S";
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&max98927_codec>;
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <0 4>, <96 4>;
++
++	gpio_hall_sensor_default: gpio-hall-sensor-state {
++		pins = "gpio131";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	gpio-key-default-state {
++		pins = "gpio59", "gpio85";
++	};
++
++	i2c-2-default-state {
++		/delete-property/ bias-disable;
++		bias-pull-up;
++	};
++
++	pmx-mdss-default-state {
++		pins = "gpio61", "gpio66";
++	};
++
++	pmx-mdss-sleep-state {
++		pins = "gpio61", "gpio66";
++	};
++
++	sec_mi2s_default: sec-mi2s-default-state {
++		pins = "gpio135", "gpio136", "gpio137", "gpio138";
++		function = "sec_mi2s";
++		drive-strength = <8>;
++	};
++
++	sec_mi2s_sleep: sec-mi2s-sleep-state {
++		pins = "gpio135", "gpio136", "gpio137", "gpio138";
++		function = "sec_mi2s";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++};
++
++&uart_0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart_console_active>;
++
++	status = "okay";
++};
++
++&wcd_codec {
++	qcom,micbias2-ext-cap;
++};
+-- 
+2.47.3
+
