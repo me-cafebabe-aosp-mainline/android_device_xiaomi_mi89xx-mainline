@@ -14,6 +14,15 @@ on late-fs
     # Mount RW partitions which need run fsck
     mount_all --late
 
+# QSEECOM
+service vendor.qseecomd /vendor/bin/qseecomd
+    class core
+    user root
+    group root
+
+on post-fs
+    start vendor.qseecomd
+
 # Set device properties
 service vendor.set_device_prop /odm/bin/set_device_prop
     class early_hal

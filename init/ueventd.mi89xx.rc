@@ -4,3 +4,5 @@
 #
 
 firmware_directories /vendor/firmware_mnt/image/ /odm/firmware/
+
+/dev/qseecom	0660	system	drmrpc

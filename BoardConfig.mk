@@ -59,3 +59,6 @@ BOARD_ODM_SEPOLICY_DIRS += \
 # VINTF
 DEVICE_MANIFEST_FILE := \
     $(DEVICE_PATH)/vintf/manifest.xml
+
+# Inherit the proprietary files
+-include vendor/xiaomi/mi89xx-mainline/BoardConfigVendor.mk
