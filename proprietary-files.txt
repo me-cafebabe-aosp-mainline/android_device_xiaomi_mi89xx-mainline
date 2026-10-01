@@ -1,4 +1,6 @@
 # From FP3
+# vince Package version: vince-user 8.1.0 OPM1.171019.019 V11.0.3.0.OEGCNXM release-keys
+# daisy Package version: daisy-user 10 QKQ1.191002.002 V11.0.21.0.QDLMIXM release-keys
 
 # QSEECOM
 vendor/bin/qseecomd
@@ -16,3 +18,14 @@ vendor/lib64/libsecureui_svcsock.so
 vendor/lib64/libssd.so
 vendor/lib64/libtime_genoff.so
 vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so
+
+# Fingerprint (Goodix) - from vince
+system/etc/firmware/goodix_firmware.bin:vendor/firmware/goodix_firmware.bin
+system/lib64/libgf_algo.so:vendor/lib64/libgf_algo.so
+system/lib64/libgf_ca.so:vendor/lib64/libgf_ca.so
+system/lib64/libgf_hal.so:vendor/lib64/libgf_hal.so
+
+# Fingerprint (Goodix HAL) - from daisy
+vendor/lib64/hw/gf_fingerprint.default.so
+vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so
+vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0.so

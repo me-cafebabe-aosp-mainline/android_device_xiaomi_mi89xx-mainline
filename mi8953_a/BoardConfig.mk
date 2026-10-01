@@ -97,3 +97,9 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Recovery
 TARGET_RECOVERY_DENSITY := xxhdpi
 TARGET_RECOVERY_FSTAB := $(TARGET_DEVICE_PATH)/fstab/fstab.mi8953_a
+
+# SELinux
+BOARD_VENDOR_SEPOLICY_DIRS += $(TARGET_DEVICE_PATH)/biometrics/sepolicy
+
+# Inherit the proprietary files
+-include vendor/xiaomi/mi8953_a/BoardConfigVendor.mk

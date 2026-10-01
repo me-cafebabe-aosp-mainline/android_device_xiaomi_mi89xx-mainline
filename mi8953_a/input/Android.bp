@@ -1,0 +1,10 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+prebuilt_usr_keylayout {
+    name: "gf3208.kl",
+    src: "gf3208.kl",
+    device_specific: true,
+}
