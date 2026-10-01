@@ -1,4 +1,4 @@
-# From FP3
+# From LA.UM.9.6.3.r1-06200-89xx.0
 
 # QSEECOM
 vendor/bin/qseecomd
