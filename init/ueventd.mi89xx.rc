@@ -6,3 +6,6 @@
 firmware_directories /vendor/firmware_mnt/image/ /odm/firmware/
 
 /dev/qseecom	0660	system	drmrpc
+
+# Replaces the ION QSECOM heap, see libion_dmaheap
+/dev/dma_heap/qseecom	0444	system	system
