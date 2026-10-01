@@ -1,0 +1,13 @@
+# Not appended blobs from vince-user 8.1.0 OPM1.171019.019 V11.0.3.0.OEGCNXM release-keys
+# daisy Package version: daisy-user 10 QKQ1.191002.002 V11.0.21.0.QDLMIXM release-keys
+
+# Fingerprint (Goodix)
+system/etc/firmware/goodix_firmware.bin:odm/firmware/goodix_firmware.bin
+system/lib64/libgf_algo.so:odm/lib64/libgf_algo.so
+system/lib64/libgf_ca.so:odm/lib64/libgf_ca.so
+system/lib64/libgf_hal.so:odm/lib64/libgf_hal.so
+
+# Fingerprint (Goodix HAL) - from daisy
+vendor/lib64/hw/gf_fingerprint.default.so:odm/lib64/hw/gf_fingerprint.vince.so
+vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so:odm/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so
+vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0.so:odm/lib64/libvendor.goodix.hardware.fingerprint@1.0.so
