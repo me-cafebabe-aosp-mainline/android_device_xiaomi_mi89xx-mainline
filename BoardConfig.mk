@@ -46,6 +46,7 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 endif
 
 # Properties
+TARGET_ODM_PROP += $(DEVICE_PATH)/properties/odm.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/properties/vendor.prop
 
 # Ramdisk
