@@ -91,3 +91,6 @@ PRODUCT_SHIPPING_API_LEVEL := 33
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
+
+# Inherit the proprietary files
+$(call inherit-product-if-exists, vendor/xiaomi/mi89xx-mainline/mi89xx-mainline-vendor.mk)
