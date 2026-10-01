@@ -19,6 +19,24 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/libsecureui.so',
     ): blob_fixup()
         .replace_needed('libion.so', 'libion_dmaheap.so'),
+    (
+        'vendor/lib64/libgf_algo.so',
+        'vendor/lib64/libgf_ca.so',
+        'vendor/lib64/libgf_hal.so',
+    ): blob_fixup()
+        .replace_needed('libstdc++.so', 'libstdc++_vendor.so'),
+    (
+        'vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0.so',
+    ): blob_fixup()
+        .replace_needed('libhidlbase.so', 'libhidlbase-v32.so'),
+    (
+        'vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so',
+    ): blob_fixup()
+        .remove_needed('libprotobuf-cpp-lite.so'),
+    (
+        'vendor/lib64/hw/gf_fingerprint.default.so',
+    ): blob_fixup()
+        .fix_soname(),
 }  # fmt: skip
 
 namespace_imports = [

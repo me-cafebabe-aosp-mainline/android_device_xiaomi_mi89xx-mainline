@@ -32,6 +32,13 @@ TARGET_HAS_IR := true
 # Dalvik heap
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1-service.xiaomi_vince
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
+
 # Firmware
 PRODUCT_COPY_FILES += \
     vendor/xiaomi/msm8953-common/proprietary/vendor/firmware/a506_zap.b00:$(TARGET_COPY_OUT_ODM)/firmware/qcom/msm8953/xiaomi/a506_zap.b00 \
@@ -68,6 +75,10 @@ endif
 
 $(call soong_config_set,mainline_common_libinit,set_properties_from,devicetree)
 
+# Input
+PRODUCT_PACKAGES += \
+    gf3208.kl
+
 # Kernel
 ifneq ($(MI8953_USE_ANDROID_COMMON_KERNEL),true)
 PRODUCT_PACKAGES += \
@@ -89,3 +100,6 @@ TARGET_QCOM_SOC_FAMILY := msm8953
 PRODUCT_SOONG_NAMESPACES += \
     $(TARGET_DEVICE_PATH) \
     kernel/mainline/configs
+
+# Inherit the proprietary files
+$(call inherit-product-if-exists, vendor/xiaomi/mi8953_a/mi8953_a-vendor.mk)
