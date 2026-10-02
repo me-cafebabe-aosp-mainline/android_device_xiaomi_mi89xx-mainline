@@ -10,34 +10,19 @@
 | mi8998                                    | kernel/mainline/msm8998-mainline | https://github.com/msm8998-mainline/linux   | qcom-msm8998-6.1.y     |
 | mi439_mainline, mi89x7, tiare_mainline    | kernel/mainline/msm89x7-mainline | https://github.com/msm89x7-mainline/linux   | msm89x7/7.1.3          |
 
-## Android platform patches
+## Patches
+
+Apply the shared patches listed in
+`device/mainline/common/docs/KERNEL_PATCHES.md`.
+
+This includes the Android platform patch, the `MEMFD_ASHMEM_SHIM` Kconfig edit
+and the patches for Linux v6.1.
+
+Device specific:
 
 | Commit name | Purpose | Source |
 |-------------|---------|--------|
-| `jniClatCoordinator: Do not crash on BPF SELinux context mismatch` | Fixes booting on v7.2+ kernels | https://review.lineageos.org/c/LineageOS/android_packages_modules_Connectivity/+/494663 |
-
-## Kernel edits
-
-- After applying kernel patches specified below, on `mm/Kconfig`, on config option `MEMFD_ASHMEM_SHIM`, remove the dependency on `ASHMEM_C`.
-
-## Kernel patches
-
-For recent Linux kernel versions:
-
-| Commit name | Purpose | Source |
-|-------------|---------|--------|
-| `ANDROID: usb: gadget: configfs: Add Uevent to notify userspace` | Fixes USB in normal mode | https://android.googlesource.com/kernel/common-patches/+/refs/heads/main-kernel/android-mainline/ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch |
-| `ANDROID: mm/memfd-ashmem-shim: Introduce shim layer` | Fixes media codec | https://android.googlesource.com/kernel/common-patches/+/refs/heads/main-kernel/android-mainline/ANDROID-mm-memfd-ashmem-shim-Introduce-shim-layer.patch |
-| `ANDROID: mm: shmem: Use memfd-ashmem-shim ioctl handler"` | Fixes media codec | https://android.googlesource.com/kernel/common-patches/+/refs/heads/main-kernel/android-mainline/ANDROID-mm-shmem-Use-memfd-ashmem-shim-ioctl-handler.patch |
 | `[HACK] input: ft5x06: Force input device name to "focaltech"` | Workaround for ts_vkeys configuration | [Here](./.kernel-patches/0001-HACK-input-ft5x06-Force-input-device-name-to-focalte.patch) |
-
-For Linux kernel v6.1:
-
-| Commit name | Purpose | Source |
-|-------------|---------|--------|
-| `ANDROID: extract-cert: omit PKCS#11 support if building against BoringSSL` | Fixes building | https://android.googlesource.com/kernel/common-patches/+/2721513428563d22dacf390aec5e81547de2ce26/android-mainline/REVISIT-ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch |
-| `Revert "staging: remove ashmem"` | Fixes booting | https://android.googlesource.com/kernel/common-patches/+/2721513428563d22dacf390aec5e81547de2ce26/android-mainline/Revert-staging-remove-ashmem.patch |
-| `ANDROID: usb: gadget: configfs: Add Uevent to notify userspace` | Fixes USB in normal mode | https://android.googlesource.com/kernel/common-patches/+/2721513428563d22dacf390aec5e81547de2ce26/android-mainline/NOUPSTREAM-ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch |
 
 ## Notes for `mi439_mainline` target
 - If you're flashing the device starting from stock OS, please firstly flash vbmeta image from any working custom ROM (Example: [Official LineageOS builds](https://download.lineageos.org/devices/Mi439/builds)). We do not enable AVB support here for smaller image sizes, for now.
