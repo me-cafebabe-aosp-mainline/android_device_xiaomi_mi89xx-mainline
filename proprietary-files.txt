@@ -29,3 +29,9 @@ system/lib64/libgf_hal.so:vendor/lib64/libgf_hal.so
 vendor/lib64/hw/gf_fingerprint.default.so
 vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so
 vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0.so
+
+# Gatekeeper
+vendor/lib64/hw/gatekeeper.msm8953.so
+
+# Keystore
+vendor/lib64/hw/keystore.msm8953.so

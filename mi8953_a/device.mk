@@ -61,6 +61,11 @@ _src := vendor/xiaomi/oxygen/proprietary/vendor/firmware/wlan/prima/WCNSS_qcom_w
 _dst := $(TARGET_COPY_OUT_ODM)/firmware/qcom/msm8953/xiaomi/oxygen/WCNSS_qcom_wlan_nv.bin
 $(eval $(if $(wildcard $(_src)),PRODUCT_COPY_FILES += $(_src):$(_dst),$(warning $(_src) not found)))
 
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
+
 # Init
 PRODUCT_PACKAGES += \
     fstab.mi8953_a \
@@ -85,6 +90,11 @@ PRODUCT_PACKAGES += \
     modules.load.normal
 endif
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
     $(TARGET_DEVICE_PATH)/overlays/overlay
@@ -92,6 +102,9 @@ DEVICE_PACKAGE_OVERLAYS += \
 # Properties
 PRODUCT_VENDOR_PROPERTIES += \
     vendor.remoteproc.4080000_remoteproc.ignore=1
+
+# Security
+TARGET_SUPPORTS_HARDWARE_BACKED_SECURITY := true
 
 # SoC
 TARGET_QCOM_SOC_FAMILY := msm8953

@@ -1,0 +1,5 @@
+# Gatekeeper
+ro.hardware.gatekeeper=msm8953
+
+# Keymaster
+ro.hardware.keystore=msm8953

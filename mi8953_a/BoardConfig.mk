@@ -94,12 +94,19 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USES_METADATA_PARTITION := true
 TARGET_COPY_OUT_VENDOR := vendor
 
+# Properties
+TARGET_VENDOR_PROP += $(TARGET_DEVICE_PATH)/properties/vendor.prop
+
 # Recovery
 TARGET_RECOVERY_DENSITY := xxhdpi
 TARGET_RECOVERY_FSTAB := $(TARGET_DEVICE_PATH)/fstab/fstab.mi8953_a
 
 # SELinux
 BOARD_VENDOR_SEPOLICY_DIRS += $(TARGET_DEVICE_PATH)/biometrics/sepolicy
+
+# VINTF
+DEVICE_MANIFEST_FILE += \
+    $(TARGET_DEVICE_PATH)/vintf/manifest.xml
 
 # Inherit the proprietary files
 -include vendor/xiaomi/mi8953_a/BoardConfigVendor.mk
