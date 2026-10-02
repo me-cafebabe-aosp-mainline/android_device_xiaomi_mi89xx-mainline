@@ -12,6 +12,8 @@
  *
  * ION handles are not a thing with dma-buf heaps, so the handle based part
  * of the API uses the dma-buf fd itself as the handle.
+ *
+ * Blobs issuing the legacy ION ioctls themselves are served by ion_legacy.c.
  */
 
 #define LOG_TAG "ion_dmaheap"

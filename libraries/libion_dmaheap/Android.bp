@@ -5,7 +5,10 @@
 
 cc_library_shared {
     name: "libion_dmaheap",
-    srcs: ["ion_dmaheap.c"],
+    srcs: [
+        "ion_dmaheap.c",
+        "ion_legacy.c",
+    ],
     shared_libs: ["liblog"],
     cflags: [
         "-Wall",
