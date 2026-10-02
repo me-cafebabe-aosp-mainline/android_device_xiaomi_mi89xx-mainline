@@ -32,6 +32,11 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/hw/gf_fingerprint.default.so',
     ): blob_fixup()
         .fix_soname(),
+    (
+        'vendor/lib64/librpmb.so',
+    ): blob_fixup()
+        .binary_regex_replace(b'/dev/block/bootdevice\x00', b'/dev/block/rpmbdevice\x00')
+        .binary_regex_replace(b'sdhci\x00', b'.mmc\x00\x00'),
 }  # fmt: skip
 
 namespace_imports = [

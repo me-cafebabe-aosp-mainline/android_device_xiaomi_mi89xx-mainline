@@ -14,6 +14,11 @@ on late-fs
     # Mount RW partitions which need run fsck
     mount_all --late
 
+# QSEECOM
+## librpmb.so detects the boot device type from this symlink's target
+on init
+    symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/rpmbdevice
+
 # Set device properties
 service vendor.set_device_prop /odm/bin/set_device_prop
     class early_hal
