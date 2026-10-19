@@ -1,3 +1,4 @@
 leds-aw2013.ko
 qcom-rng.ko
 tps65132-regulator.ko
+leds-qcom-lpg.ko
