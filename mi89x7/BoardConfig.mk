@@ -23,6 +23,7 @@ TARGET_DTB_LIST_WILDCARD := \
 
 TARGET_KERNEL_CONFIG_EXT := \
     $(TARGET_DEVICE_PATH)/kconfigs/config-postmarketos-qcom-msm89x7.aarch64 \
+    $(TARGET_DEVICE_PATH)/kconfigs/addon.config \
     kernel/mainline/configs/fragments/android-base-pre/common.config \
     kernel/mainline/configs/fragments/android-base-pre/arm64.config \
     kernel/configs/b/android-6.12/android-base.config \
