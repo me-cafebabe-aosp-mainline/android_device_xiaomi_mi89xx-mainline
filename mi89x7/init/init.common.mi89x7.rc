@@ -30,7 +30,9 @@ on property:ro.vendor.device.codename=prada
 on property:ro.vendor.device.codename=santoni
     write /sys/class/power_supply/qcom-smbchg-usb/constant_charge_current 2000000
     write /sys/class/power_supply/qcom-smbchg-usb/input_current_limit 2000000
-## SMB358 + CW2015 device (TODO)
+## SMB358 + CW2015 devices (rolex)
+# smb347-charger exposes no writable attributes, charge current/voltage
+# come from the simple-battery node in the device tree.
 
 # Touchscreen virtual keys
 on property:ro.vendor.device.codename=land
