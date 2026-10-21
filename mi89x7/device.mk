@@ -64,7 +64,6 @@ PRODUCT_PACKAGES += \
 
 # Properties
 PRODUCT_VENDOR_PROPERTIES += \
-    vendor.hwc.drm.enable_backlight_control=0 \
     vendor.remoteproc.4080000_remoteproc.ignore=1
 
 # SoC
