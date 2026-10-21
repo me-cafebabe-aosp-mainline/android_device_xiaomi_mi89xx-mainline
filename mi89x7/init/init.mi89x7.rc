@@ -9,11 +9,3 @@ import /vendor/etc/init/hw/init.mi89xx.rc
 on post-fs
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -s -d /vendor/lib/modules --all=/vendor/etc/modules.load.normal
     trigger start_all_remoteproc
-
-# Sensors
-on early-boot && property:ro.vendor.device.codename=ugg
-    setprop vendor.sensors.composite.device_orientation.invert_x true
-    setprop vendor.sensors.composite.device_orientation.invert_y true
-on early-boot && property:ro.vendor.device.codename=ugglite
-    setprop vendor.sensors.composite.device_orientation.invert_x true
-    setprop vendor.sensors.composite.device_orientation.invert_y true
