@@ -5,6 +5,12 @@
 
 TARGET_DEVICE_PATH := device/xiaomi/mi89xx-mainline/mi8953_a
 
+# $(call copy-file-if-exists,<src>,<dst>)
+# Adds <src>:<dst> to PRODUCT_COPY_FILES, or warns if <src> does not exist.
+define copy-file-if-exists
+$(if $(wildcard $(1)),$(eval PRODUCT_COPY_FILES += $(strip $(1)):$(strip $(2))),$(warning $(strip $(1)) not found))
+endef
+
 # Inherit from parent
 $(call inherit-product, device/xiaomi/mi89xx-mainline/device.mk)
 
@@ -51,9 +57,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     all_symlink_firmware_mi8953_a
 
-_src := vendor/xiaomi/oxygen/proprietary/vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-_dst := $(TARGET_COPY_OUT_ODM)/firmware/qcom/msm8953/xiaomi/oxygen/WCNSS_qcom_wlan_nv.bin
-$(eval $(if $(wildcard $(_src)),PRODUCT_COPY_FILES += $(_src):$(_dst),$(warning $(_src) not found)))
+$(call copy-file-if-exists,\
+    vendor/xiaomi/oxygen/proprietary/vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin,\
+    $(TARGET_COPY_OUT_ODM)/firmware/qcom/msm8953/xiaomi/oxygen/WCNSS_qcom_wlan_nv.bin)
 
 # Init
 PRODUCT_PACKAGES += \
