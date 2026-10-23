@@ -61,6 +61,10 @@ $(call copy-file-if-exists,\
     vendor/xiaomi/oxygen/proprietary/vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin,\
     $(TARGET_COPY_OUT_ODM)/firmware/qcom/msm8953/xiaomi/oxygen/WCNSS_qcom_wlan_nv.bin)
 
+$(call copy-file-if-exists,\
+    vendor/xiaomi/vince/proprietary/vendor/firmware/tas2557_uCDSP.bin,\
+    $(TARGET_COPY_OUT_ODM)/firmware/tas2557_uCDSP.bin)
+
 # Init
 PRODUCT_PACKAGES += \
     fstab.mi8953_a \
